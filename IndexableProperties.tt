@@ -10,10 +10,36 @@
 ///////////////////////////////////////////////////////////////////////
 
 using System.Runtime.CompilerServices;
+using System.Collections.Generic;
+using System.Linq;
 using System;
 
 namespace Unknown6656;
 
+
+public static class <#=RW_INDEXER#>
+{
+    public static <#=RW_INDEXER#><int, T> AsIndexer<T>(this T[] array) => (array as IList<T>).AsIndexer();
+
+    public static <#=RW_INDEXER#><int, T> AsIndexer<T>(this IList<T> list) => new(idx => list[idx], (idx, value) => list[idx] = value);
+
+    public static <#=RW_INDEXER#><int, T> AsIndexer<T>(this IEnumerable<T> collection) => (collection as IList<T> ?? collection.ToList()).AsIndexer();
+
+    public static <#=RW_INDEXER#><K, V> AsIndexer<K, V>(this IDictionary<K, V> dictionary)
+        where K : notnull => new(key => dictionary[key], (key, value) => dictionary[key] = value);
+
+    public static <#=RO_INDEXER#><K, V> AsReadOnlyIndexer<K, V>(this IDictionary<K, V> dictionary)
+        where K : notnull => new(key => dictionary[key]);
+
+    public static <#=RO_INDEXER#><K, V> AsReadOnlyIndexer<K, V>(this IReadOnlyDictionary<K, V> dictionary)
+        where K : notnull => new(key => dictionary[key]);
+
+    public static <#=RO_INDEXER#><int, T> AsReadOnlyIndexer<T>(this T[] array) => (array as IReadOnlyList<T>).AsIndexer();
+
+    public static <#=RO_INDEXER#><int, T> AsReadOnlyIndexer<T>(this IReadOnlyList<T> list) => new(idx => list[idx]);
+
+    public static <#=RO_INDEXER#><int, T> AsReadOnlyIndexer<T>(this IEnumerable<T> collection) => (collection as IList<T> ?? collection.ToList()).AsReadOnlyIndexer();
+}
 <#
     int maxdim = 4;
 
@@ -182,7 +208,7 @@ void generate_indexer_declaration(int dim, string pars_types, string pars_decls,
         }
 #>
 /// <typeparam name="Value">Generic value type</typeparam>
-public sealed class <#=typename#><<#=pars_types#>, Value>
+public sealed partial class <#=typename#><<#=pars_types#>, Value>
 {
 <#+
     generate_indexer_body(dim, typename, pars_types, pars_decls, pars_names, @set, @get);
