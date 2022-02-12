@@ -1,4 +1,7 @@
-[![NuGet version (Unknown6656.IndexableProperties)](https://img.shields.io/nuget/v/Unknown6656.IndexableProperties.svg?style=flat-square)](https://www.nuget.org/packages/Unknown6656.IndexableProperties/)
+[![](https://img.shields.io/github/downloads/Unknown6656-Megacorp/Unknown6656.IndexableProperties/total)](https://github.com/Unknown6656-Megacorp/Unknown6656.IndexableProperties/releases)
+[![](https://img.shields.io/nuget/vpre/Unknown6656.IndexableProperties)](https://www.nuget.org/packages/Unknown6656.IndexableProperties/)
+[![](https://img.shields.io/nuget/dt/Unknown6656.IndexableProperties)](https://www.nuget.org/packages/Unknown6656.IndexableProperties/)
+
 
 # Unknown6656.IndexableProperties
 
